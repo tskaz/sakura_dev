@@ -32,3 +32,12 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ignore transient lock info files created by terraform apply
+.terraform.tfstate.lock.info
+.terraform.lock.hcl
+
+# Ignore rsa pem
+.pem
+*rsa*
+.ssh/
