@@ -1,0 +1,57 @@
+#cloud-config
+password: ${password} 
+locale: ja_JP
+disable_root: false
+users:
+  - almalinux
+chpasswd:
+  expire: false
+  users:
+    - name: root
+      password: ${root_password} 
+      type: text
+    - name: almalinux
+      password: ${password} 
+      type: text
+ssh_pwauth: false
+ssh_authorized_keys:
+  - ${sshkey_pub}
+#network:
+#  version: 1
+#  config:
+#    - type: physical
+#      name: eth2
+#      subnets:
+#        - type: static
+#          address: ${ip_address}
+#          netmask: ${netmask}
+#          gateway: ${gateway}
+#          dns_nameservers:
+#            - 8.8.8.8
+bootcmd:
+  - sed -i -e 's/^\SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+  - sed -i -e 's/^\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  - sysctl -p
+  - grubby --update-kernel ALL --args selinux=0
+  - [localectl, set-keymap, jp]
+  - [localectl, set-x11-keymap, jp]
+  - hostnamectl hostname ${hostname}
+
+runcmd:
+  - nmcli c m "System eth0" ipv4.method manual
+  - nmcli c m "System eth0" connection.autoconnect yes
+  - nmcli c m "System eth0" ipv4.address "${ip_address}/${netmask}" ipv4.gateway "${gateway}"
+  - nmcli c m "System eth0" ipv4.dns "8.8.8.8"
+  - nmcli c up "System eth0"
+  - nmcli c add type dummy ifname dummy0 ipv4.method manual ipv4.addresses ${lba_vip}/32 ipv6.method ignore
+  - nmcli c up lo
+  - echo "net.ipv4.conf.all.arp_ignore = 1" >> /etc/sysctl.conf
+  - echo "net.ipv4.conf.all.arp_announce = 2" >> /etc/sysctl.conf
+
+  - setenforce 0
+  - echo "hoge" >> /root/hoge
+  - dnf install httpd -y
+  - hostname >> /var/www/html/index.html
+  - systemctl enable httpd
+  - systemctl start httpd
+  - reboot

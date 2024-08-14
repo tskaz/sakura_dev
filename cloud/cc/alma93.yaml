@@ -1,0 +1,40 @@
+#cloud-config
+password: ${password} 
+users:
+  - almalinux
+chpasswd:
+  expire: false
+  users:
+    - name: root
+      password: ${root_password} 
+      type: text
+    - name: almalinux
+      password: ${password} 
+      type: text
+ssh_pwauth: false
+ssh_authorized_keys:
+  - ${sshkey_pub}
+network:
+  version: 1
+  config:
+    - type: physical
+      subnets:
+        - type: static
+          address: ${ip_address}
+          netmask: ${netmask}
+          gateway: ${gateway}
+          dns_nameservers:
+            - 8.8.8.8
+runcmd:
+  - hostnamectl hostname ${hostname}
+#  - nmcli c m "System eth0" ipv4.method manual
+#  - nmcli c m "System eth0" connection.autoconnect yes
+#  - nmcli c m "System eth0" ipv4.address "${ip_address}/${netmask}" ipv4.gateway "${gateway}"
+#  - nmcli c m "System eth0" ipv4.dns "8.8.8.8"
+#  - nmcli c up "System eth0"
+  - setenforce 0
+  - sed -i -e 's/^\SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+  - sed -i -e 's/^\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+  - grubby --update-kernel ALL --args selinux=0
+  - echo "hoge" >> /root/hoge
+  - reboot

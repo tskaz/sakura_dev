@@ -1,0 +1,19 @@
+#cloud-config
+ssh_pwauth: false
+users:
+  - alma
+  - alma22
+chpasswd:
+  expire: false
+  users:
+    - name: root
+      password: ${password} 
+      type: text
+    - name: almalinux
+      password: ${password} 
+      type: text
+disable_root: false 
+ssh_authorized_keys:
+  - ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBPfrqgr75qjcfc1AcjIXUfTusLGGeKfq7D++r5TVVS2rzKnO1nLHvTKPFDNEjsIvrWZVrsWPA+Y+4gXqFsmDacc=
+runcmd:
+  - hostnamectl hostname ${hostname}

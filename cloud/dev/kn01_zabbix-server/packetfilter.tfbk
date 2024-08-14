@@ -1,0 +1,21 @@
+resource "sakuracloud_packet_filter" "filter" {
+  name = var.hostname
+  zone = var.default_zone
+  expression {
+    protocol         = "tcp"
+    destination_port = "8080"
+  }
+  expression {
+    protocol         = "tcp"
+    destination_port = "80"
+  }
+  expression {
+    protocol         = "tcp"
+    destination_port = "22"
+  }
+  expression {
+    protocol    = "ip"
+    allow       = false
+    description = "Deny ALL"
+  }
+}

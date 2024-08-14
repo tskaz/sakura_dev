@@ -1,0 +1,29 @@
+## template: jinja
+#cloud-config
+locale: ja_JP.utf8
+timezone: Asia/Tokyo
+password: ${password} 
+chpasswd:
+  expire: false
+  users:
+    - name: root
+      password: ${root_password} 
+      type: text
+    - name: ubuntu
+      password: ${password} 
+      type: text
+ssh_pwauth: false
+ssh_authorized_keys:
+  - ${sshkey_pub}
+network:
+  version: 2
+  ethernets:
+    ens3:
+     dhcp4: true
+#      addresses: 
+#        - "{{ Server.Interfaces[0].IPAddress }}/24"
+      nameservers:
+        addresses: [8.8.8.8]
+runcmd:
+  - sudo hostnamectl set-hostname ${hostname}
+  - sudo reboot
