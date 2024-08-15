@@ -23,10 +23,13 @@ override.tf.json
 *_override.tf
 *_override.tf.json
 
+<<<<<<< HEAD
 # Ignore transient lock info files created by terraform apply
 .terraform.tfstate.lock.info
 .terraform.lock.hcl
 
+=======
+>>>>>>> origin/main
 # Include override files you do wish to add to version control using negated pattern
 # !example_override.tf
 
@@ -37,8 +40,19 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+<<<<<<< HEAD
 # Ignore rsa pem 
 .pem
 *rsa*
 .ssh/
 
+=======
+# Ignore transient lock info files created by terraform apply
+.terraform.tfstate.lock.info
+.terraform.lock.hcl
+
+# Ignore rsa pem
+.pem
+*rsa*
+.ssh/
+>>>>>>> origin/main
