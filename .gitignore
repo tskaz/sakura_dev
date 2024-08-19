@@ -42,3 +42,5 @@ terraform.rc
 *rsa*
 .ssh/
 
+# Ignore .envrc
+.env*

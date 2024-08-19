@@ -10,8 +10,7 @@ output "server_info" {
 output "vpcrt_info" {
   value = {
     "vpcrt_ip"         = sakuracloud_vpc_router.vpcrt.public_ip,
-    "wireguard_ip"     = sakuracloud_vpc_router.vpcrt.wire_guard[0].ip_address,
-    "wireguard_pubkey" = sakuracloud_vpc_router.vpcrt.wire_guard[0].public_key
-
+    "wg_nwip"     = sakuracloud_vpc_router.vpcrt.wire_guard[0].ip_address,
+    "wg_nwpubkey" = sakuracloud_vpc_router.vpcrt.wire_guard[0].public_key
   }
 }
