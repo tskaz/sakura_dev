@@ -16,7 +16,7 @@ resource "sakuracloud_server" "server" {
     user_ip_address = "192.168.100.12"
     #  packet_filter_id = sakuracloud_packet_filter.filter.id
   }
-  user_data = var.user_data_enable == true ? data.template_file.user_data[count.index].rendered : 0
+  user_data = var.user_data_enable == true ? data.template_file.user_data[count.index].rendered : null
 
   dynamic "disk_edit_parameter" {
     for_each = var.diskedit_enable == true ? [1] : []

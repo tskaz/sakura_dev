@@ -14,7 +14,7 @@ data "local_file" "zbx_ssh-keygen" {
   count = var.zbx_sv["count"]
   filename   = "${local.ssh_keys}/id_rsa_zbx0${count.index+1}.pub"
   depends_on = [null_resource.ssh-keygen]
-}
+  }
 
 #output "zbx_pub_keys" {
 #  value = data.local_file.zbx_ssh-keygen[*].content

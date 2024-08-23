@@ -16,14 +16,14 @@ variable "zone" {
 
 variable "os" {   
 
-  default = "FortiGateVM v7.2.8"
+  default = "KUSANAGI 9.4 (CentOS Stream9 Edition)"
 #  default = "Ubuntu Server 23.04.3 LTS 64bit (cloudimg)"
 #  default = "Ubuntu Server 22.04.4 LTS 64bit"
 #  default = "Alma Linux 9.3 (cloudimg)"
 }
 
 variable "diskedit_enable" {
-  default = false
+  default = true
 }
 
 variable "user_data_enable" {
