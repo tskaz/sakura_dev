@@ -1,4 +1,4 @@
-# [Deproying Sample] Private Monitoring Server on Sakura Cloud IaaS
+# [Deproying Sample] さくらのクラウドでterraform - プライベート監視サーバ構築
 
 ## Deployment Summary
 This codes are deploy that Monitioring server on Sakura CLoud IaaS based on Zabbix Server.
